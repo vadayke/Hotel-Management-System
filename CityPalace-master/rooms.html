@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="Icon.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <title>City Palace</title>
+</head>
+
+
+<body>
+    <nav>
+        <img src="Logo.png" alt="" class="logo" height="70" width="auto">
+
+        <input type="checkbox" id="hamburger-toggle">
+        <label for="hamburger-toggle" class="hamburger">
+            <i class="fas fa-bars" id="iconopen" onClick="buttonopenclose()"></i>
+            <i class="fas fa-times" id="iconclose" onClick="buttonopenclose()"></i>
+        </label>
+
+        <ul class="nav__list">
+            <li class="navbar__item"><a href="index.html" class="navbar__itemLink">Hotel</a></li>
+            <li class="navbar__item"><a href="rooms.html" class="navbar__itemLink active">Rooms</a></li>
+            <li class="navbar__item"><a href="dining.html" class="navbar__itemLink">Dining</a></li>
+            <li class="navbar__item"><a href="login.html" class="navbar__itemLink">Book Your Stay</a></li>
+            <li class="navbar__item"><a href="contact.html" class="navbar__itemLink">Contact Us</a></li>
+            
+        </ul>
+    </nav>
+
+    <!-- Carousel -->
+    <div class="carousel">
+        <!-- Carousel Images -->
+        <div class="carousel__imagesTransition">
+            <img name='slide' class="carousel__image" id="#gallery"/>
+        </div>
+
+        <!-- Left Button -->
+        <a class="carousel__leftButton">
+            <span id="left" class="carousel__leftButtonSymbol">
+                <img src="LeftIcon.png" alt="Left Icon" height="50" width="auto">
+            </span>
+        </a>
+
+        <!-- Right Button -->
+        <a class="carousel__rightButton">
+            <span id="right" class="carousel__rightButtonSymbol">
+                <img src="RightIcon.png" alt="Right Icon" height="50" width="auto">
+            </span>
+        </a>
+    </div>
+
+    <!-- Rooms Section -->
+    <div class="offers">
+        <h2 class="offers__heading">Rooms</h2>
+        <div class="row">
+            <!-- Section -->
+            <div class="rowsectionone">
+                <div class="card">
+                    <img src="Images/rooms6.jpg" alt="" class="card__image">
+                    <div class="card__details">
+                        <h1 class="card__detailsHeading">Single Room</h1>
+                        <div class="card__detailsButtons">
+                            <div class="button__groups">
+                                <a href="" class="button">Price = 2000 INR</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section -->
+            <div class="rowsectionone">
+                <div class="card">
+                    <img src="Images/rooms3.webp" alt="" class="card__image">
+                    <div class="card__details">
+                        <h1 class="card__detailsHeading">Double Room</h1>
+                            <div class="card__detailsButtons">
+                            <div class="button__groups">
+                                <a class="button">Price - 3000 INR</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section -->
+            <div class="rowsectionone">
+                <div class="card">
+                    <img src="Images/rooms2.webp" alt="" class="card__image">
+                    <div class="card__details">
+                        <h1 class="card__detailsHeading">Deluxe Room</h1>
+                            <div class="card__detailsButtons">
+                            <div class="button__groups">
+                                <a href="" class="button">Price = 5000 INR</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="online_food_delivery_box animated bounceInDown" id="input_box">
+        <h3> Book Room </h3><br>
+        <form>
+            <div class="form-group">
+                <input type="email" class="form-control" id="username" placeholder="Username" >
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Password"  >
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="room_type" onchange="finalPrice()">
+                    <option value="0"> Select Room Type ... </option>
+                    <option value="2000"> Single Room </option>
+                    <option value="3000"> Double Room </option>
+                    <option value="5000"> Deluxe Room </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" id="nights" onchange="finalPrice()">
+                    <option> Select No. of Nights ... </option>
+                    <option value="1"> 1 </option>
+                    <option value="2"> 2 </option>
+                    <option value="3"> 3 </option>
+                    <option value="4"> 4 </option>
+                    <option value="5"> 5 </option>
+                    <option value="6"> 6 </option>
+                </select>
+            </div><br/>
+            <div class="form-group">
+                <label>Total Cost (&#8377) : </label>
+                <span id="result" style="background-color: #8c7269;color: #fff;padding: 6px 70px;font-weight: 600;font-size: 18px; margin-left: 10px;border-radius: 5px;">0</span>
+                <input type="button" value="Book Now" class="btn btn-primary" style="float: right" id="ok" onclick="ok_result()">
+            </div>
+        </form>
+    </div>
+
+    <div class="result_box animated zoomIn" style="display: none;" id="okResult">
+        <h3 class="result_box_text" id="ok_text"> Your booking is successfully done.<br><br><span> --  Thank You  -- </span></h3><br>
+    </div>
+
+    <!-- Foooter -->
+    <div class="footer">
+
+        <!-- Footer Logo -->
+        <div class="footer__image">
+            <a href="index.html" class="footer__link">
+                <img src="Logo2.png" alt="City Palace Logo" class="footer__logo"/> 
+                <img src="Images/design2.png" alt="Design" class="welcome__image">
+            </a>
+        </div>
+
+        <!-- Social Media -->
+        <ul class="footer__socialMedia">
+            <li class="footer__socialMediaItems">
+                <a href="" class="socialMedia__Links" target="_blank" rel="noreferrer">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </li>
+            <li class="footer__socialMediaItems">
+                <a href="" class="socialMedia__Links" target="_blank" rel="noreferrer">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+            </li>
+            <li class="footer__socialMediaItems">
+                <a href="" class="socialMedia__Links" target="_blank" rel="noreferrer">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+            </li>
+            <li class="footer__socialMediaItems">
+                <a href="" class="socialMedia__Links" target="_blank" rel="noreferrer">
+                    <i class="fab fa-linkedin-in fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Copyright Information -->
+        <div class="copyright">
+            <div class="copyright__info">
+                © 2021 Copyright: 
+                <a href="index.html" class="copyright__infoLink"> CityPalace</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="rooms.js"></script>
+</body>
